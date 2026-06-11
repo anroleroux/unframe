@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Products</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+        
+        body {
+          margin: 0;
+          font-family: sans-serif;
+          background: #f5f5f5;
+          color: #222;
+        }
+        
+        /* ── Header nav ───────────────────────────────── */
+        
+        header {
+          background: #fff;
+          border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .main-nav {
+          max-width: 720px;
+          margin: 0 auto;
+          display: flex;
+          gap: 0.25rem;
+          padding: 0.6rem 0;
+        }
+        
+        .nav-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 0.9rem;
+          color: #888;
+          padding: 0.3rem 0.75rem;
+          border-radius: 5px;
+          transition: color 0.15s, background 0.15s;
+        }
+        
+        .nav-btn:hover { color: #222; background: #f0f0f0; }
+        
+        .nav-btn--active { color: #222; font-weight: 600; }
+        
+        /* ── Product list ─────────────────────────────── */
+        
+        .items-list {
+          max-width: 720px;
+          margin: 1.5rem auto;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        
+        .item-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: #fff;
+          border: 1px solid #e0e0e0;
+          border-radius: 6px;
+          padding: 0.75rem 1rem;
+          cursor: pointer;
+          transition: box-shadow 0.15s, border-color 0.15s;
+        }
+        
+        .item-row:hover {
+          border-color: #aaa;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        
+        .item-row__main {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+        }
+        
+        .item-row__name {
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+        
+        .item-row__category {
+          font-size: 0.78rem;
+          color: #888;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+        
+        .item-row__meta {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 0.2rem;
+        }
+        
+        .item-row__price {
+          font-weight: 700;
+          font-size: 0.95rem;
+        }
+        
+        /* ── Detail card ──────────────────────────────── */
+        
+        .product-card--detail {
+          background: #fff;
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          padding: 1.5rem;
+          max-width: 720px;
+          margin: 1.5rem auto;
+        }
+        
+        .product-card__header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.75rem;
+        }
+        
+        .product-card__category {
+          font-size: 0.78rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: #888;
+        }
+        
+        .back-btn {
+          background: none;
+          border: none;
+          color: #555;
+          cursor: pointer;
+          font-size: 0.85rem;
+          padding: 0.25rem 0.5rem;
+        }
+        
+        .back-btn:hover { color: #111; }
+        
+        .product-card--detail h2 {
+          margin: 0 0 0.5rem;
+          font-size: 1.4rem;
+        }
+        
+        .product-card__desc {
+          color: #555;
+          line-height: 1.5;
+          margin: 0 0 1rem;
+        }
+        
+        .product-card__meta {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          margin-bottom: 1.25rem;
+        }
+        
+        .product-card__price {
+          font-size: 1.25rem;
+          font-weight: 700;
+        }
+        
+        /* ── Shared stock badges ──────────────────────── */
+        
+        .in-stock {
+          font-size: 0.78rem;
+          background: #e6f4ea;
+          color: #2d7a3a;
+          border-radius: 4px;
+          padding: 0.2rem 0.5rem;
+        }
+        
+        .out-stock {
+          font-size: 0.78rem;
+          background: #fdecea;
+          color: #b71c1c;
+          border-radius: 4px;
+          padding: 0.2rem 0.5rem;
+        }
+        
+        /* ── Buttons ──────────────────────────────────── */
+        
+        .start-btn {
+          background: #222;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          padding: 0.5rem 1.2rem;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: background 0.15s;
+        }
+        
+        .start-btn:hover { background: #444; }
+        
+        .delete-btn {
+          background: none;
+          color: #b71c1c;
+          border: 1px solid #b71c1c;
+          border-radius: 5px;
+          padding: 0.5rem 1.2rem;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: background 0.15s, color 0.15s;
+        }
+        
+        .delete-btn:hover {
+          background: #b71c1c;
+          color: #fff;
+        }
+        
+        .edit-btn {
+          background: none;
+          color: #555;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 0.35rem 0.9rem;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: border-color 0.15s, color 0.15s;
+        }
+        
+        .edit-btn:hover {
+          border-color: #888;
+          color: #222;
+        }
+        
+        .row-actions {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+        }
+        
+        /* ── Toolbar ──────────────────────────────────── */
+        
+        .items-toolbar {
+          max-width: 720px;
+          margin: 0;
+          display: flex;
+          justify-content: flex-end;
+        }
+        
+        /* ── Add form ─────────────────────────────────── */
+        
+        .add-form {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          margin-bottom: 1.25rem;
+        }
+        
+        .add-form__field {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+        
+        .add-form__field--row {
+          flex-direction: row;
+          gap: 1rem;
+        }
+        
+        .add-form__field--row > .add-form__field {
+          flex: 1;
+        }
+        
+        .add-form__field label {
+          font-size: 0.78rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: #888;
+        }
+        
+        .add-form__field input,
+        .add-form__field select,
+        .add-form__field textarea {
+          border: 1px solid #e0e0e0;
+          border-radius: 5px;
+          padding: 0.45rem 0.6rem;
+          font-size: 0.9rem;
+          font-family: inherit;
+          outline: none;
+          transition: border-color 0.15s;
+        }
+        
+        .add-form__field input:focus,
+        .add-form__field select:focus,
+        .add-form__field textarea:focus {
+          border-color: #aaa;
+        }
+        
+        .add-form__field textarea {
+          resize: vertical;
+          min-height: 4rem;
+        }
+        
+        /* ── Editable fields ──────────────────────────── */
+        
+        .product-card__fields {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 1.25rem;
+        }
+        
+        .editable-field {
+          display: flex;
+          align-items: baseline;
+          gap: 0.75rem;
+          padding: 0.45rem 0;
+          border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .editable-field:last-child { border-bottom: none; }
+        
+        .editable-field--editing {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0.4rem;
+          padding: 0.6rem 0;
+        }
+        
+        .editable-field__label {
+          font-size: 0.72rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: #888;
+          min-width: 80px;
+          flex-shrink: 0;
+        }
+        
+        .editable-field--editing .editable-field__label { min-width: unset; }
+        
+        .editable-field__value {
+          flex: 1;
+          font-size: 0.9rem;
+        }
+        
+        .edit-field-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: #ccc;
+          font-size: 0.85rem;
+          padding: 0.1rem 0.3rem;
+          border-radius: 3px;
+          line-height: 1;
+          transition: color 0.15s;
+        }
+        
+        .edit-field-btn:hover { color: #555; }
+        
+        .editable-field__input {
+          border: 1px solid #aaa;
+          border-radius: 5px;
+          padding: 0.4rem 0.6rem;
+          font-size: 0.9rem;
+          font-family: inherit;
+          outline: none;
+          transition: border-color 0.15s;
+        }
+        
+        .editable-field__input:focus { border-color: #555; }
+        
+        .editable-field__btns {
+          display: flex;
+          gap: 0.5rem;
+        }
+        
+        .save-field-btn {
+          background: #222;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          padding: 0.3rem 0.8rem;
+          font-size: 0.82rem;
+          cursor: pointer;
+          transition: background 0.15s;
+        }
+        
+        .save-field-btn:hover { background: #444; }
+        
+        .cancel-field-btn {
+          background: none;
+          color: #555;
+          border: none;
+          cursor: pointer;
+          font-size: 0.82rem;
+          padding: 0.3rem 0.5rem;
+        }
+        
+        .cancel-field-btn:hover { color: #111; }
+        
+        /* ── Page header ──────────────────────────────── */
+        
+        main section h1 {
+          max-width: 720px;
+          margin: 2rem auto 0.25rem;
+          padding: 0 0 0.5rem;
+          font-size: 1.6rem;
+          font-weight: 700;
+          color: #222;
+          border-bottom: 2px solid #e0e0e0;
+          letter-spacing: -0.01em;
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="main-nav">
+        <button class="nav-btn nav-btn--active" id="nav-products" onclick="showPage('products')">Products</button>
+        <button class="nav-btn" id="nav-categories" onclick="showPage('categories')">Categories</button>
+      </nav>
+    </header>
+    <main>
+      <section id="page-categories" hidden>
+        <h1>Categories</h1>
+        <div id="categories-list" class="items-list">
+          <p>Loading categories...</p>
+        </div>
+      </section>
+      <section id="page-products">
+        <h1>Products</h1>
+        <div id="products-list" class="items-list">
+          <p>Loading products...</p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+        const USER_STORAGE_KEY = "currentUserId";
+        
+        function getCurrentUserId() {
+          return localStorage.getItem(USER_STORAGE_KEY) || "";
+        }
+        
+        function setCurrentUserId(userId) {
+          if (!userId) {
+            return;
+          }
+          localStorage.setItem(USER_STORAGE_KEY, userId);
+        }
+        
+        // ── Local data persistence ────────────────────────────────────────────
+        // Built with `make uidev`, the //online-start … //online-end blocks that
+        // talk to a back-end are stripped out, and these helpers become the app's
+        // only data store. Each model persists under its own global name
+        // ('products', 'categories', …) so state survives a page reload. Start the
+        // app empty and add your own records — they are remembered in the browser.
+        
+        function loadLocal(key) {
+          try {
+            return JSON.parse(localStorage.getItem("data-" + key)) || [];
+          } catch {
+            return [];
+          }
+        }
+        
+        function saveLocal(key, list) {
+          localStorage.setItem("data-" + key, JSON.stringify(list));
+        }
+        
+        function nextLocalId(list) {
+          return list.reduce((max, item) => Math.max(max, item.id || 0), 0) + 1;
+        }
+        
+        function showPage(name) {
+            document.querySelectorAll('main > section').forEach(s => s.hidden = true);
+            document.getElementById('page-' + name).hidden = false;
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('nav-btn--active'));
+            document.getElementById('nav-' + name).classList.add('nav-btn--active');
+        }
+        
+        function reactive(obj, onChange) {
+            return new Proxy(obj, {
+                get(target, prop, receiver) {
+                    const value = Reflect.get(target, prop, receiver);
+        
+                    if (ArrayBuffer.isView(value) && !(value instanceof DataView)) {
+                        return value;
+                    }
+                    
+                    if (typeof value === 'object' && value !== null)
+                        return reactive(value, onChange);
+                    return value;
+                },
+                set(target, prop, value, receiver) {
+                    const result = Reflect.set(target, prop, value, receiver);
+                    if (prop !== "_draft") {
+                        onChange();
+                    }
+                    return result;
+                },
+                deleteProperty(target, prop) {
+                    const result = Reflect.deleteProperty(target, prop);
+                    onChange();
+                    return result;
+                }
+            });
+        }
+        
+        function mount(root, state, template) {
+            function bindEditableInputs() {
+                document.querySelectorAll("input[id^='input-']").forEach(input => {
+                    input.oninput = e => {
+                        const [ , nindex, field ] = input.id.split("-");
+                        networks[nindex]._draft = e.target.value;
+                    };
+                    input.focus();
+                });
+            }
+        
+            function render() {
+                root.innerHTML = template(state);
+                bindEditableInputs();
+            }
+            
+            const r = reactive(state, render);
+            render();
+            return r;
+        }
+        
+        // Renders a display row (label + value + edit button) or, when this field is
+        // being edited, an edit row (label + input/select + Save/Cancel buttons).
+        // mountRef  — global variable name of the reactive mount object, e.g. 'products'
+        // apiPath   — base API path for PATCH, e.g. '/api/products'
+        // label     — human-readable field label shown above the input
+        // fieldKey  — property name on the selected item, e.g. 'name', 'price'
+        // display   — formatted string shown in display mode, e.g. '$3.49'
+        // inputType — 'text' | 'number' | 'select'
+        // options   — required when inputType === 'select': [{value, label}, ...]
+        function editableField(mountRef, apiPath, label, fieldKey, display, inputType, options) {
+            const mount = window[mountRef];
+            if (mount.editing_field === fieldKey) {
+                const control = inputType === 'select'
+                    ? `<select class="editable-field__input" onchange="${mountRef}._draft=this.value">
+                           ${options.map(o => `<option value="${o.value}"${o.value == mount._draft ? ' selected' : ''}>${o.label}</option>`).join('')}
+                       </select>`
+                    : `<input class="editable-field__input" type="${inputType}" value="${mount._draft ?? ''}" oninput="${mountRef}._draft=this.value"${inputType === 'number' ? ' step="any" min="0"' : ''}>`;
+                return `
+                    <div class="editable-field editable-field--editing">
+                        <label class="editable-field__label">${label}</label>
+                        ${control}
+                        <div class="editable-field__btns">
+                            <button class="save-field-btn" type="button" onclick="saveField('${mountRef}','${fieldKey}','${apiPath}','${inputType}')">Save</button>
+                            <button class="cancel-field-btn" type="button" onclick="cancelEdit('${mountRef}')">Cancel</button>
+                        </div>
+                    </div>`;
+            }
+            return `
+                <div class="editable-field">
+                    <label class="editable-field__label">${label}</label>
+                    <span class="editable-field__value">${display}</span>
+                    <button class="edit-field-btn" type="button" onclick="beginEdit('${mountRef}','${fieldKey}')">&#9998;</button>
+                </div>`;
+        }
+        
+        // Seeds _draft with the current field value (no re-render) then sets
+        // editing_field (triggers one re-render that switches the field to edit mode).
+        // mountRef — global variable name of the reactive mount object
+        // fieldKey — property name on the selected item to begin editing
+        function beginEdit(mountRef, fieldKey) {
+            const mount = window[mountRef];
+            mount._draft = mount.selected[fieldKey];
+            mount.editing_field = fieldKey;
+        }
+        
+        // Clears editing_field, reverting the active field back to display mode.
+        // mountRef — global variable name of the reactive mount object
+        function cancelEdit(mountRef) {
+            window[mountRef].editing_field = null;
+        }
+        
+        // Reads _draft, type-converts it based on inputType, PATCHes the API (online
+        // builds only), writes the value back to the selected item, persists the list
+        // locally, and clears editing_field.
+        // mountRef  — global variable name of the reactive mount object
+        // fieldKey  — property name on the selected item being saved
+        // apiPath   — base API path; request goes to apiPath/selected.id
+        // inputType — 'text' | 'number' | 'select'; controls type conversion of _draft
+        function saveField(mountRef, fieldKey, apiPath, inputType) {
+            const mount = window[mountRef];
+            let val = mount._draft;
+            if (inputType === 'number') val = parseFloat(val) || 0;
+            if (inputType === 'select') val = parseInt(val, 10);
+        
+        
+            mount.selected[fieldKey] = val;
+            saveLocal(mountRef, mount.list);
+            mount.editing_field = null;
+        }
+        
+        function productsTemplate(state) {
+            const productTemplate = (p) => {
+                const mr = 'products', api = '/api/products';
+                return `
+                <div class="product-card product-card--detail">
+                    <div class="product-card__header">
+                        <span class="product-card__category">${categoryName(p.category_id)}</span>
+                        <button class="back-btn" type="button" onclick="products.selected=null;products.editing_field=null">&#8592; Back</button>
+                    </div>
+                    <div class="product-card__fields">
+                        ${editableField(mr, api, 'Name',        'name',        p.name,                      'text')}
+                        ${editableField(mr, api, 'Category',    'category_id', categoryName(p.category_id), 'select', categories.list.map(c => ({value: c.id, label: c.name})))}
+                        ${editableField(mr, api, 'Price',       'price',       '$' + p.price.toFixed(2),    'number')}
+                        ${editableField(mr, api, 'Stock',       'stock',       String(p.stock),             'number')}
+                        ${editableField(mr, api, 'Description', 'description', p.description,              'text')}
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="delete-btn" type="button" onclick="deleteProduct(products.selected)">Delete</button>
+                    </div>
+                </div>
+                `;
+            };
+        
+            const addFormTemplate = () => `
+                <form class="product-card product-card--detail" onsubmit="saveProduct(event)">
+                    <div class="product-card__header">
+                        <span class="product-card__category">New product</span>
+                        <button class="back-btn" type="button" onclick="products.adding=false">&#8592; Cancel</button>
+                    </div>
+                    <div class="add-form">
+                        <div class="add-form__field">
+                            <label>Name</label>
+                            <input name="name" type="text" required>
+                        </div>
+                        <div class="add-form__field">
+                            <label>Category</label>
+                            <select name="category_id" required>
+                                <option value="">Select a category</option>
+                                ${categories.list.map(c => `<option value="${c.id}">${c.name}</option>`).join("")}
+                            </select>
+                        </div>
+                        <div class="add-form__field add-form__field--row">
+                            <div class="add-form__field">
+                                <label>Price</label>
+                                <input name="price" type="number" step="0.01" min="0" required>
+                            </div>
+                            <div class="add-form__field">
+                                <label>Stock</label>
+                                <input name="stock" type="number" min="0" required>
+                            </div>
+                        </div>
+                        <div class="add-form__field">
+                            <label>Description</label>
+                            <textarea name="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="start-btn" type="submit">Save</button>
+                    </div>
+                </form>
+            `;
+        
+            const rowTemplate = (p, pid) => `
+                <div class="item-row" onclick="selectProduct(${pid})">
+                    <div class="item-row__main">
+                        <span class="item-row__name">${p.name}</span>
+                        <span class="item-row__category">${categoryName(p.category_id)}</span>
+                    </div>
+                    <div class="item-row__meta">
+                        <span class="item-row__price">$${p.price.toFixed(2)}</span>
+                        <span class="item-row__stock ${p.stock > 0 ? 'in-stock' : 'out-stock'}">${p.stock > 0 ? 'In stock' : 'Out of stock'}</span>
+                    </div>
+                </div>
+            `;
+        
+            if (state.selected) return productTemplate(state.selected);
+            if (state.adding)   return addFormTemplate();
+            return `
+                <div class="items-toolbar">
+                    <button class="start-btn" type="button" onclick="products.adding=true">+ Add product</button>
+                </div>
+                ${state.list.map((sp, spid) => rowTemplate(sp, spid)).join("")}
+            `;
+        }
+        
+        var products = mount(
+            document.getElementById("products-list"),
+            {list: [], selected: null, adding: false, editing_field: null},
+            productsTemplate
+        );
+        
+        function selectProduct(pid) {
+            products.selected = products.list[pid];
+        }
+        
+        async function deleteProduct(p) {
+            const idx = products.list.findIndex(item => item.id === p.id);
+            if (idx !== -1) products.list.splice(idx, 1);
+            saveLocal("products", products.list);
+            products.editing_field = null;
+            products.selected = null;
+        }
+        
+        async function saveProduct(e) {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            const data = {
+                name:        fd.get("name"),
+                category_id: parseInt(fd.get("category_id"), 10),
+                price:       parseFloat(fd.get("price")),
+                stock:       parseInt(fd.get("stock"), 10),
+                description: fd.get("description") || "",
+            };
+        
+            if (!data.id) data.id = nextLocalId(products.list);
+            products.list.push(data);
+            saveLocal("products", products.list);
+            products.adding = false;
+        }
+        
+        async function loadProducts() {
+            products.list = loadLocal("products");
+        }
+        
+        function categoriesTemplate(state) {
+            const addFormTemplate = () => `
+                <form class="product-card product-card--detail" onsubmit="saveCategory(event)">
+                    <div class="product-card__header">
+                        <span class="product-card__category">New category</span>
+                        <button class="back-btn" type="button" onclick="categories.adding=false">&#8592; Cancel</button>
+                    </div>
+                    <div class="add-form">
+                        <div class="add-form__field">
+                            <label>Name</label>
+                            <input name="name" type="text" required>
+                        </div>
+                        <div class="add-form__field">
+                            <label>Description</label>
+                            <textarea name="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="start-btn" type="submit">Save</button>
+                    </div>
+                </form>
+            `;
+        
+            const editFormTemplate = (c) => `
+                <form class="product-card product-card--detail" onsubmit="updateCategory(event)">
+                    <div class="product-card__header">
+                        <span class="product-card__category">Edit category</span>
+                        <button class="back-btn" type="button" onclick="categories.editing=null">&#8592; Cancel</button>
+                    </div>
+                    <div class="add-form">
+                        <div class="add-form__field">
+                            <label>Name</label>
+                            <input name="name" type="text" value="${c.name}" required>
+                        </div>
+                        <div class="add-form__field">
+                            <label>Description</label>
+                            <textarea name="description">${c.description || ''}</textarea>
+                        </div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="start-btn" type="submit">Update</button>
+                    </div>
+                </form>
+            `;
+        
+            const rowTemplate = (c) => `
+                <div class="item-row">
+                    <div class="item-row__main">
+                        <span class="item-row__name">${c.name}</span>
+                        <span class="item-row__category">${c.description || ''}</span>
+                    </div>
+                    <div class="row-actions">
+                        <button class="edit-btn" type="button" onclick="editCategory(${c.id})">Edit</button>
+                        <button class="delete-btn" type="button" onclick="deleteCategory(${c.id})">Delete</button>
+                    </div>
+                </div>
+            `;
+        
+            if (state.adding)  return addFormTemplate();
+            if (state.editing) return editFormTemplate(state.editing);
+            return `
+                <div class="items-toolbar">
+                    <button class="start-btn" type="button" onclick="categories.adding=true">+ Add category</button>
+                </div>
+                ${state.list.map((c) => rowTemplate(c)).join("")}
+            `;
+        }
+        
+        var categories = mount(
+            document.getElementById("categories-list"),
+            {list: [], adding: false, editing: null},
+            categoriesTemplate
+        );
+        
+        function editCategory(id) {
+            categories.editing = categories.list.find(c => c.id === id);
+        }
+        
+        function categoryName(id) {
+            const c = categories.list.find(c => c.id === id);
+            return c ? c.name : '—';
+        }
+        
+        async function deleteCategory(id) {
+            const idx = categories.list.findIndex(c => c.id === id);
+            if (idx !== -1) categories.list.splice(idx, 1);
+            saveLocal("categories", categories.list);
+        }
+        
+        async function saveCategory(e) {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            const data = {
+                name:        fd.get("name"),
+                description: fd.get("description") || "",
+            };
+        
+            if (!data.id) data.id = nextLocalId(categories.list);
+            categories.list.push(data);
+            saveLocal("categories", categories.list);
+            categories.adding = false;
+        }
+        
+        async function updateCategory(e) {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            const updated = {
+                id:          categories.editing.id,
+                name:        fd.get("name"),
+                description: fd.get("description") || "",
+            };
+        
+            const idx = categories.list.findIndex(c => c.id === updated.id);
+            if (idx !== -1) categories.list[idx] = updated;
+            saveLocal("categories", categories.list);
+            categories.editing = null;
+        }
+        
+        async function loadCategories() {
+            categories.list = loadLocal("categories");
+        }
+        
+        document.addEventListener("DOMContentLoaded", () => {
+          setCurrentUserId(1);
+          loadCategories();
+          loadProducts();
+        });
+    </script>
+  </body>
+</html>

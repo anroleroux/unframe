@@ -1,0 +1,11 @@
+{{reactivity-js}}:ui/reactivity.js
+{{products-js}}:ui/comps/products.js
+{{categories-js}}:ui/comps/categories.js
+
+{{layout-css}}:ui/dist/index.css
+{{products-html}}:ui/content/products.html
+{{categories-html}}:ui/content/categories.html
+{{layout-js}}:ui/dist/index.js
+
+{{products-css}}:ui/content/products.css
+{{categories-css}}:ui/content/categories.css

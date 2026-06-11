@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Products</title>
+    <style>
+        /*{{layout-css}}*/
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="main-nav">
+        <button class="nav-btn nav-btn--active" id="nav-products" onclick="showPage('products')">Products</button>
+        <button class="nav-btn" id="nav-categories" onclick="showPage('categories')">Categories</button>
+      </nav>
+    </header>
+    <main>
+      <section id="page-categories" hidden>
+        <h1>Categories</h1>
+        <div id="categories-list" class="items-list">
+          <p>Loading categories...</p>
+        </div>
+      </section>
+      <section id="page-products">
+        <h1>Products</h1>
+        <div id="products-list" class="items-list">
+          <p>Loading products...</p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+        // {{layout-js}}
+    </script>
+  </body>
+</html>
