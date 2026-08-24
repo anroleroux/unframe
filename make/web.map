@@ -1,4 +1,4 @@
-{{reactivity-js}}:ui/reactivity.js
+{{reactivity-js}}:vendor/unframe/runtime/reactivity.js
 {{products-js}}:ui/comps/products.js
 {{categories-js}}:ui/comps/categories.js
 

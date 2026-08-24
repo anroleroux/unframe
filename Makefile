@@ -1,4 +1,4 @@
-include make/tpl.mk
+include vendor/unframe/runtime/tpl.mk
 
 # Three mode flags are used to determine a build. XXX means no flags are enabled.
 #
@@ -20,7 +20,7 @@ ui/dist/index.css: ui/layout.css $(wildcard ui/comps/*/*.css)
 	@mkdir -p ui/dist
 	$(call compose,ui/layout.css,make/web.map,ui/dist/index.css)
 
-ui/dist/index.js: ui/layout.js ui/reactivity.js $(wildcard ui/comps/*.js) $(wildcard ui/comps/*/*.js)
+ui/dist/index.js: ui/layout.js vendor/unframe/runtime/reactivity.js $(wildcard ui/comps/*.js) $(wildcard ui/comps/*/*.js)
 	@mkdir -p ui/dist
 	$(call compose,ui/layout.js,make/web.map,ui/dist/index.js)
 
